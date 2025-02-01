@@ -1,5 +1,6 @@
 delete_merged_file: true
 output_dir: "docs"
+repo: "https://github.com/NPS-ARCN-CAKN/ARCN_Lagoons_Data_Management_SOPs"
 language:
   ui:
     chapter_name: ""
