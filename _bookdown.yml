@@ -1,0 +1,14 @@
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: ""
+    label: chapter
+book_filename: "ARCN_Lagoons_Data_Management_SOPs"
+new_session: yes
+rmd_files: [
+  "index.Rmd",
+  "DeliverablesSchedule.Rmd",
+  "L03-ContinuousWaterQuality.Rmd",
+  "L10-DiscreteWaterQuality.Rmd"
+  
+]

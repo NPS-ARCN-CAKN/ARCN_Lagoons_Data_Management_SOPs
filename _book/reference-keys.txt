@@ -1,0 +1,13 @@
+introduction
+deliverables-schedule
+deliverable-l03-water-quality---continuous
+section
+deliverable-l10-water-quality---discrete
+exporting-data-from-deliverables-l10---discrete-water-quality-field-data-to-the-master-database
+prerequisites
+procedure
+example-export-lagoons-from-the-l-to-the-arcn_lagoons-database-using-an-r-script
+isolate-the-lagoons-check-they-exist-and-insert-them-into-the-lagoons-table-if-necessary
+isolate-the-distinct-sampling-events-and-insert-them-into-the-samplingevents-table
+insert-the-l10-discrete-water-quality-data-into-the-database
+quality-control
