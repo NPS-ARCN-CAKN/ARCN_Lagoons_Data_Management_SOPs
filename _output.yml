@@ -3,10 +3,10 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">A Minimal Book Example</a></li>
+        <li><a href="./">Data management Standard Operating Procedures for the National Park Service arctic lagoons monitoring program</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
+    edit: https://github.com/NPS-ARCN-CAKN/ARCN_Lagoons_Data_Management_SOPs
     download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:
