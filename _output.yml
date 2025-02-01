@@ -5,9 +5,7 @@ bookdown::gitbook:
       before: |
         <li><a href="./">Data management Standard Operating Procedures for the National Park Service arctic lagoons monitoring program</a></li>
       after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/NPS-ARCN-CAKN/ARCN_Lagoons_Data_Management_SOPs
-    download: ["pdf", "epub"]
+        <li><a href="https://irma.nps.gov/DataStore/Reference/Profile/2216893" target="blank">Monitoring Coastal Lagoon Communities and Ecosystems in the Arctic Network of National Parks</a></li>
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
