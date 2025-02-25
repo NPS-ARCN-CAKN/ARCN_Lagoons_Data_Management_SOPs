@@ -1,11 +1,11 @@
-# Deliverables Schedule  {#Deliverables Schedule}
+# Deliverables Schedule {#DeliverablesSchedule}
 
 ```         
 {#foo}
 ```
 
 | Identifier | Deliverable | Format |
-|:--------------|:----------------|:---------------------------------------|
+|:----------------|:----------------|:-------------------------------------|
 | L01 | GPS waypoint files | GPS export format. Text file format. |
 | L02 | Hydrosurveyor files | Hydrosurveyor export format. Text file format. |
 | L03 | Water Quality - Continuous | EXO2 Sonde Probe data and calibration data files. Text file formats. |
@@ -22,5 +22,3 @@
 | L14 | Fish otolith data | NA |
 | L15 | Mysids data file | CSV |
 | LAG01 | Field data | Human and machine readable text file format. |
-
-

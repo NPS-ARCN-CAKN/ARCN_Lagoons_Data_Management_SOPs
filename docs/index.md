@@ -1,5 +1,5 @@
 ---
-title: "Arctic Lagoons Monitoring Data Management Standard Operating Procedures"
+title: "Arctic Lagoons Monitoring Data Management Standard Operating Procedures [DRAFT]"
 author: |
   Scott D. Miller<br/>
   Information Technology Specialist\\Data Manager<br/>
@@ -25,4 +25,4 @@ Methods and background are published in [Jones, T., Apsens, S., Miller, S., and 
 
 Data and published products are available through the NPS Data Store at <https://irma.nps.gov/DataStore/Reference/Profile/2216893>
 
-
+\`\`\`{r include=FALSE} \# automatically create a bib database for R packages knitr::write_bib(c( .packages(), 'bookdown', 'knitr', 'rmarkdown' ), 'packages.bib')

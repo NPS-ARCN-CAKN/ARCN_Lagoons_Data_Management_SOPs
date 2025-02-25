@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 Dataset publication | Arctic Lagoons Monitoring Data Management Standard Operating Procedures [DRAFT]</title>
+  <title>3 Deliverables Management | Arctic Lagoons Monitoring Data Management Standard Operating Procedures [DRAFT]</title>
   <meta name="description" content="Arctic Lagoons Monitoring Data Management Standard Operating Procedures" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 Dataset publication | Arctic Lagoons Monitoring Data Management Standard Operating Procedures [DRAFT]" />
+  <meta property="og:title" content="3 Deliverables Management | Arctic Lagoons Monitoring Data Management Standard Operating Procedures [DRAFT]" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Arctic Lagoons Monitoring Data Management Standard Operating Procedures" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Dataset publication | Arctic Lagoons Monitoring Data Management Standard Operating Procedures [DRAFT]" />
+  <meta name="twitter:title" content="3 Deliverables Management | Arctic Lagoons Monitoring Data Management Standard Operating Procedures [DRAFT]" />
   
   <meta name="twitter:description" content="Arctic Lagoons Monitoring Data Management Standard Operating Procedures" />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="dataset-certification.html"/>
-
+<link rel="prev" href="DeliverablesSchedule.html"/>
+<link rel="next" href="deliverable-l03-water-quality---continuous.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -126,18 +126,59 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dataset-publication" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">9</span> Dataset publication<a href="dataset-publication.html#dataset-publication" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The ARCN_Lagoons SQL Server master database will always be the authoritative repository for lagoons monitoring data. Department of Interior policy, in practice, prohibits the publication of data directly from a database. Data files containing certified data will be exported from the database to human and machine readable formats (Comma Separated Values text files, for example) and packaged together with metadata in <a href="https://nationalparkservice.github.io/NPSdataverse/">Ecological Metadata Language</a> and published to the IRMA Data Store. These Data Packages will be linked as Products to the <a href="https://irma.nps.gov/DataStore/Reference/Profile/2216893">master lagoons monitoring Project Reference</a>.</p>
+<div id="DeliverablesManagement" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Deliverables Management<a href="DeliverablesManagement.html#DeliverablesManagement" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Managing long-term data requires fastidious organization and archival of data products. This section covers data management procedures from field data files acceptance, through quality control and database integration.</p>
+<div id="prerequisites" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Prerequisites<a href="DeliverablesManagement.html#prerequisites" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Write privileges on the Lagoons monitoring shared network drive (<code>O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems</code>).</p></li>
+<li><p>datawriter privileges on the lagoons monitoring master SQL Server database (currently on the ARCN development SQL Server at <code>inpyugamsvm01\nuna_dev:ARCN_Lagoons</code>).</p></li>
+</ul>
+</div>
+<div id="procedure" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Procedure<a href="DeliverablesManagement.html#procedure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Deliverables typically arrive as Comma Separated Values (CSV) text files, or Microsoft Excel workbooks). If these files have not been named correctly according to the deliverables schedule then that is the first task. The objective here is to extract data from the contractor’s files into individual files of high data quality and named according to the deliverables schedule.</p>
+<ol style="list-style-type: decimal">
+<li><p>Open a file explorer and navigate to the ARCN Lagoons monitoring shared network drive (described above).</p></li>
+<li><p>Enter the <code>\Data</code> directory</p></li>
+<li><p>If a directory does not exist, then create it using the following example: <code>O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling</code>, replacing 2024 with the appropriate year.</p></li>
+<li><p>Create two subdirectories:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>\Deliverables as received</code></p></li>
+<li><p><code>\Deliverables processing</code></p></li>
+</ol></li>
+<li><p>The purpose of the former directory is to store the files in their unaltered state as they were received from the contractor. The latter directory is a workbench for processing the raw deliverables into well-documented and high quality formats suitable for archivale and export into the master ARCN_Lagoons database.</p></li>
+<li><p>Duplicate the raw deliverable files into the two directories created above.</p></li>
+<li><p>Compress (zip) the files in the <code>\Deliverables as received</code> and set the attributes to ReadOnly so they may not be accidentally altered.</p></li>
+<li><p>Only work on the files in the <code>\Deliverables processing</code> directory. If mistakes are made then restore the files from the <code>\Deliverables as received</code> directory. Ideally, if your skills allow, load the data from these files into a data processing environment and only make changes and edits there, preserving the original file in an ‘as received’ state.</p></li>
+<li><p>Correct common errors:</p>
+<ol style="list-style-type: decimal">
+<li><p>Misspelled Lagoon names. Consult the database’s <code>Lagoons</code> table for authoritative Lagoon names. Incorrectly named Lagoon attributes in the field data will be rejected by the database when you try to insert the records, so they must be fixed prior.</p></li>
+<li><p>Check for Site name inconsistencies. Standard site names consist of the first three letters of the lagoon name followed by an underbar, followed by the first letter of the site type. Example: <code>AUK_M</code> represents the marine edge site type in the Aukulak lagoon. Standardized site types include:</p>
+<ol style="list-style-type: decimal">
+<li><p>Inlet</p></li>
+<li><p>Outlet</p></li>
+<li><p>Marine edge</p></li>
+<li><p>Terrestrial edge</p></li>
+<li><p>Random</p></li>
+<li><p>Other site types are often included despite not being in the protocol (‘Channel’,‘Center’, etc.). Determine if these sites should more properly be categorized as standardized site types or not and rename them.</p></li>
+<li><p>Consult the database’s <code>Sites</code> table for authoritative Site names. Site names are often spelled differently for the same site, <code>AK1</code> vs <code>AK_1</code>, for example.</p></li>
+<li><p>Excel often mucks up dates in a way that won’t manifest until much later in the data processing. It is therefore good to look for it ahead of time as a matter of course. You may see a date in Excel as <code>2017-06-21</code>, for example, but when you import it into other software such as R you will see an integer rather than a date. This is due to the way Excel handles dates internally. The solution is to re-label the Date column as something like ExcelDate and then create another column next to it with a formula converting the Excel date into it’s text representation. Example formula that converts date values in cell A2 to a text date: <code>=TEXT(A2,"YYYY-MM-DD")</code>. These string dates usually transfer to CSV files or analytical packages correctly as a string.</p></li>
+<li><p>Next, process each deliverable according to it’s pertinent data processing chapter directives.</p></li>
+</ol></li>
+</ol></li>
+</ol>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="dataset-certification.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="DeliverablesSchedule.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="deliverable-l03-water-quality---continuous.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

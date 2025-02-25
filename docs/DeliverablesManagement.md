@@ -1,6 +1,4 @@
-
-
-# Deliverables Management
+# Deliverables Management {#DeliverablesManagement}
 
 Managing long-term data requires fastidious organization and archival of data products. This section covers data management procedures from field data files acceptance, through quality control and database integration.
 
@@ -56,8 +54,4 @@ Deliverables typically arrive as Comma Separated Values (CSV) text files, or Mic
 
         8.  Excel often mucks up dates in a way that won't manifest until much later in the data processing. It is therefore good to look for it ahead of time as a matter of course. You may see a date in Excel as `2017-06-21`, for example, but when you import it into other software such as R you will see an integer rather than a date. This is due to the way Excel handles dates internally. The solution is to re-label the Date column as something like ExcelDate and then create another column next to it with a formula converting the Excel date into it's text representation. Example formula that converts date values in cell A2 to a text date: `=TEXT(A2,"YYYY-MM-DD")`. These string dates usually transfer to CSV files or analytical packages correctly as a string.
 
-10. Create a single file for each deliverable that is labeled consistently with the deliverable identifier, the year and a description of the data they contain. Example: `L10 2024 Lagoons Discrete Water Quality Data.csv` or `L12 2024 Lagoons Sampling Fish Counts.csv.`
-
-11. Save each file to the parent directory. Example: `\Data\2024 Lagoons Sampling`. When finished you should have a directory of processed field data deliverables with each file labeled according to deliverable identifier, year of collection and brief description. E`xample: L10 2024 Lagoons Discrete Water Quality Data.csv`.
-
-12. See the other chapters of this SOP for instructions on moving data from field deliverable files into the master lagoons monitoring database.
+        9.  Next, process each deliverable according to it's pertinent data processing chapter directives.
