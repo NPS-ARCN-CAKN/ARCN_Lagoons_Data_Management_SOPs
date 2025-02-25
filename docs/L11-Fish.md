@@ -1,13 +1,8 @@
-```{r,echo=FALSE,include=FALSE}
-# Load libraries
-library(tidyverse)
-library(odbc)
-TableCounter = 1
-```
 
-# Deliverable L10: Water Quality - Discrete
 
-## Exporting data from Deliverables L10 - Discrete water quality field data to the master database
+# Deliverable L11: Fish
+
+## Exporting data from Deliverables L11 - Fish field data to the master database
 
 Lagoons monitoring data are delivered to the ARCN data manager as spreadsheets or text files. These should be labeled according to the Deliverables Schedule.
 
@@ -45,58 +40,29 @@ Lagoons monitoring data are delivered to the ARCN data manager as spreadsheets o
 
         3.  If the Lagoons and Site names are consistent with the database then the next step is to export the sampling events to the `SamplingEvents` database table.
 
-    9.  Create a single file for each deliverable that is labeled consistently with the deliverable identifier, the year and a description of the data they contain. Example: `L10 2024 Lagoons Discrete Water Quality Data.csv` or `L12 2024 Lagoons Sampling Fish Counts.csv.`
+    9.  Create a single file for each deliverable that is labeled consistently with the deliverable identifier, the year and a description of the data they contain. Example: `L11 2024 Lagoons Discrete Water Quality Data.csv` or `L12 2024 Lagoons Sampling Fish Counts.csv.`
+
+2.  Remove NAs.
+
+3.  Standardize Site names, view in GIS.
+
+4.  Check Longitude values are negative and make sense.
+
+5.  Check data types (glimpse(data)) are correct.
+
+6.  Move text from numeric data columns to an equivalent column. Example: 'Count' values recorded as '\>10,000' should be moved to 'Count_Text'.
 
 ## Example: Export Lagoons from the L to the ARCN_Lagoons database using an R script
 
 ### Isolate the lagoons, check they exist, and insert them into the Lagoons table, if necessary
 
-```{r,echo=TRUE,include=FALSE,warning=FALSE}
 
-# Build up a path to the raw data deliverable file
-dir = r'(O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/)'
-SourceFilename = r'(2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx)'
-Workbook = paste(dir,SourceFilename,sep="")
-Worksheet = "Water Data 2024" 
-wq = readxl::read_excel(Workbook,Worksheet)
-wq = as.data.frame(wq)
-
-# Extract the unique Lagoon names from the data
-Lagoons = as.data.frame(wq %>% distinct(Lagoon))
-
-# Loop through the distinct Lagoon names and write SQL queries to see if they exist and, if they don't, insert them. 
-# Copy the queries into SQL Server Management Studio and execute them. 
-# Any SELECT queries returning zero records indicates that the Lagoon is missinf from the Lagoons table. Insert it using the INSERT query
-
-cat("-- Use the SELECT queries below to determine if the Lagoons in Deliverable L10 exist or not. These lagoons must exist to avoid database errors when inserting data later on. If a lagoon doesn't exist, check the spelling. If it still doesn't exist, use the relevant INSERT query to insert it.\n")
-for(i in 1:nrow(Lagoons)){
-  Lagoon=Lagoons[i,'Lagoon']
-  Sql = paste("SELECT * FROM Lagoons WHERE Lagoon='",Lagoon,"' -- INSERT INTO Lagoons(Lagoon)VALUES('",Lagoon,"')\n",sep="")
-  cat(Sql)
-}
-```
 
 ### Isolate the distinct sampling events and insert them into the SamplingEvents table
 
-```{r,echo=TRUE,include=FALSE,warning=FALSE}
-# Check that the field sites exist in the Sites database table. If the field sites do not exist in the database then those records will be rejected by the database.
 
-# This code writes to standard output a set of SELECT queries that can be executed against the database. If any SELECT queries return zero results, then you must INSERT the site using the accompanying INSERT query.
 
-# Get the unique lagoon/site combinations
-Sites = as.data.frame(wq %>% distinct(Lagoon,Location))
-for(i in 1:nrow(Sites)){
-  Lagoon=Sites[i,'Lagoon']
-  Site = Sites[i,'Location'] 
-  
-  #Build a query
-  Sql = paste("SELECT * FROM Sites WHERE Lagoon='",Lagoon,"' And  Site='",Site,"'\n -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('",Lagoon,"','",Site,"','",Workbook,"')\n",sep="")
-  cat(Sql)
-}
-# The sites should all exist now
-```
-
-### Insert the L10 Discrete Water Quality data into the database
+### Insert the L11 Discrete Water Quality data into the database
 
 You may modify and use the R code above to generate insert queries to insert the discrete water quality data into the database, but it may be easier to use the SQL Server Management Studio's Data Import/Export Wizard.
 

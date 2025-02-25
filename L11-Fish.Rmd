@@ -5,9 +5,9 @@ library(odbc)
 TableCounter = 1
 ```
 
-# Deliverable L10: Water Quality - Discrete
+# Deliverable L11: Fish
 
-## Exporting data from Deliverables L10 - Discrete water quality field data to the master database
+## Exporting data from Deliverables L11 - Fish field data to the master database
 
 Lagoons monitoring data are delivered to the ARCN data manager as spreadsheets or text files. These should be labeled according to the Deliverables Schedule.
 
@@ -45,7 +45,17 @@ Lagoons monitoring data are delivered to the ARCN data manager as spreadsheets o
 
         3.  If the Lagoons and Site names are consistent with the database then the next step is to export the sampling events to the `SamplingEvents` database table.
 
-    9.  Create a single file for each deliverable that is labeled consistently with the deliverable identifier, the year and a description of the data they contain. Example: `L10 2024 Lagoons Discrete Water Quality Data.csv` or `L12 2024 Lagoons Sampling Fish Counts.csv.`
+    9.  Create a single file for each deliverable that is labeled consistently with the deliverable identifier, the year and a description of the data they contain. Example: `L11 2024 Lagoons Discrete Water Quality Data.csv` or `L12 2024 Lagoons Sampling Fish Counts.csv.`
+
+2.  Remove NAs.
+
+3.  Standardize Site names, view in GIS.
+
+4.  Check Longitude values are negative and make sense.
+
+5.  Check data types (glimpse(data)) are correct.
+
+6.  Move text from numeric data columns to an equivalent column. Example: 'Count' values recorded as '\>10,000' should be moved to 'Count_Text'.
 
 ## Example: Export Lagoons from the L to the ARCN_Lagoons database using an R script
 
@@ -68,7 +78,7 @@ Lagoons = as.data.frame(wq %>% distinct(Lagoon))
 # Copy the queries into SQL Server Management Studio and execute them. 
 # Any SELECT queries returning zero records indicates that the Lagoon is missinf from the Lagoons table. Insert it using the INSERT query
 
-cat("-- Use the SELECT queries below to determine if the Lagoons in Deliverable L10 exist or not. These lagoons must exist to avoid database errors when inserting data later on. If a lagoon doesn't exist, check the spelling. If it still doesn't exist, use the relevant INSERT query to insert it.\n")
+cat("-- Use the SELECT queries below to determine if the Lagoons in Deliverable L11 exist or not. These lagoons must exist to avoid database errors when inserting data later on. If a lagoon doesn't exist, check the spelling. If it still doesn't exist, use the relevant INSERT query to insert it.\n")
 for(i in 1:nrow(Lagoons)){
   Lagoon=Lagoons[i,'Lagoon']
   Sql = paste("SELECT * FROM Lagoons WHERE Lagoon='",Lagoon,"' -- INSERT INTO Lagoons(Lagoon)VALUES('",Lagoon,"')\n",sep="")
@@ -96,7 +106,7 @@ for(i in 1:nrow(Sites)){
 # The sites should all exist now
 ```
 
-### Insert the L10 Discrete Water Quality data into the database
+### Insert the L11 Discrete Water Quality data into the database
 
 You may modify and use the R code above to generate insert queries to insert the discrete water quality data into the database, but it may be easier to use the SQL Server Management Studio's Data Import/Export Wizard.
 

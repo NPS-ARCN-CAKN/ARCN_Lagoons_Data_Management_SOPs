@@ -1,3 +1,5 @@
+
+
 # Deliverable L10: Water Quality - Discrete
 
 ## Exporting data from Deliverables L10 - Discrete water quality field data to the master database
@@ -45,133 +47,10 @@ Lagoons monitoring data are delivered to the ARCN data manager as spreadsheets o
 ### Isolate the lagoons, check they exist, and insert them into the Lagoons table, if necessary
 
 
-``` r
-# Load libraries
-library(tidyverse)
-```
-
-```
-## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
-
-``` r
-# Build up a path to the raw data deliverable file
-dir = r'(O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/)'
-SourceFilename = r'(2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx)'
-Workbook = paste(dir,SourceFilename,sep="")
-Worksheet = "Water Data 2024" 
-wq = readxl::read_excel(Workbook,Worksheet)
-wq = as.data.frame(wq)
-
-# Extract the unique Lagoon names from the data
-Lagoons = as.data.frame(wq %>% distinct(Lagoon))
-
-# Loop through the distinct Lagoon names and write SQL queries to see if they exist and, if they don't, insert them. 
-# Copy the queries into SQL Server Management Studio and execute them. 
-# Any SELECT queries returning zero records indicates that the Lagoon is missinf from the Lagoons table. Insert it using the INSERT query
-
-cat("-- Use the SELECT queries below to determine if the Lagoons in Deliverable L10 exist or not. These lagoons must exist to avoid database errors when inserting data later on. If a lagoon doesn't exist, check the spelling. If it still doesn't exist, use the relevant INSERT query to insert it.\n")
-```
-
-```
-## -- Use the SELECT queries below to determine if the Lagoons in Deliverable L10 exist or not. These lagoons must exist to avoid database errors when inserting data later on. If a lagoon doesn't exist, check the spelling. If it still doesn't exist, use the relevant INSERT query to insert it.
-```
-
-``` r
-for(i in 1:nrow(Lagoons)){
-  Lagoon=Lagoons[i,'Lagoon']
-  Sql = paste("SELECT * FROM Lagoons WHERE Lagoon='",Lagoon,"' -- INSERT INTO Lagoons(Lagoon)VALUES('",Lagoon,"')\n",sep="")
-  cat(Sql)
-}
-```
-
-```
-## SELECT * FROM Lagoons WHERE Lagoon='Aukulak' -- INSERT INTO Lagoons(Lagoon)VALUES('Aukulak')
-## SELECT * FROM Lagoons WHERE Lagoon='Krusenstern' -- INSERT INTO Lagoons(Lagoon)VALUES('Krusenstern')
-## SELECT * FROM Lagoons WHERE Lagoon='Kotlik' -- INSERT INTO Lagoons(Lagoon)VALUES('Kotlik')
-## SELECT * FROM Lagoons WHERE Lagoon='Tasaychek' -- INSERT INTO Lagoons(Lagoon)VALUES('Tasaychek')
-## SELECT * FROM Lagoons WHERE Lagoon='Atiligauraq' -- INSERT INTO Lagoons(Lagoon)VALUES('Atiligauraq')
-```
 
 ### Isolate the distinct sampling events and insert them into the SamplingEvents table
 
 
-``` r
-# Check that the field sites exist in the Sites database table. If the field sites do not exist in the database then those records will be rejected by the database.
-
-# This code writes to standard output a set of SELECT queries that can be executed against the database. If any SELECT queries return zero results, then you must INSERT the site using the accompanying INSERT query.
-
-# Get the unique lagoon/site combinations
-Sites = as.data.frame(wq %>% distinct(Lagoon,Location))
-for(i in 1:nrow(Sites)){
-  Lagoon=Sites[i,'Lagoon']
-  Site = Sites[i,'Location'] 
-  
-  #Build a query
-  Sql = paste("SELECT * FROM Sites WHERE Lagoon='",Lagoon,"' And  Site='",Site,"'\n -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('",Lagoon,"','",Site,"','",Workbook,"')\n",sep="")
-  cat(Sql)
-}
-```
-
-```
-## SELECT * FROM Sites WHERE Lagoon='Aukulak' And  Site='Outflow'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Aukulak','Outflow','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Aukulak' And  Site='R1'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Aukulak','R1','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Aukulak' And  Site='Center'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Aukulak','Center','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Aukulak' And  Site='R3'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Aukulak','R3','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Aukulak' And  Site='Inflow'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Aukulak','Inflow','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Aukulak' And  Site='R2'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Aukulak','R2','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Aukulak' And  Site='Marine edge'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Aukulak','Marine edge','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Krusenstern' And  Site='R1'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Krusenstern','R1','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Krusenstern' And  Site='Center'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Krusenstern','Center','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Krusenstern' And  Site='R3'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Krusenstern','R3','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Krusenstern' And  Site='R2'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Krusenstern','R2','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Krusenstern' And  Site='Outflow'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Krusenstern','Outflow','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Krusenstern' And  Site='Marine edge'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Krusenstern','Marine edge','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Kotlik' And  Site='R3'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Kotlik','R3','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Kotlik' And  Site='Inflow'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Kotlik','Inflow','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Kotlik' And  Site='Outflow'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Kotlik','Outflow','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Kotlik' And  Site='R2'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Kotlik','R2','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Kotlik' And  Site='Center'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Kotlik','Center','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Kotlik' And  Site='Marine edge'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Kotlik','Marine edge','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Kotlik' And  Site='R1'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Kotlik','R1','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Tasaychek' And  Site='Outflow'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Tasaychek','Outflow','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-## SELECT * FROM Sites WHERE Lagoon='Atiligauraq' And  Site='Outflow'
-##  -- INSERT INTO Sites(Lagoon,Site,SourceFile)VALUES('Atiligauraq','Outflow','O:\Monitoring\Vital Signs\Lagoon Communities and Ecosystems\Data\2024 Lagoons Sampling\Deliverables processing/2021-2024 WCS CAKR Coastal Lagoons Data Received 2024-07-31 From KFraley Processed for DB Ingestion.xlsx')
-```
-
-``` r
-# The sites should all exist now
-```
 
 ### Insert the L10 Discrete Water Quality data into the database
 
@@ -189,4 +68,22 @@ You may modify and use the R code above to generate insert queries to insert the
 
 ## Quality control
 
-[to be written]
+Quality control is an important step on the path to dataset certification and designation as of analytical quality. The lagoons monitoring program will follow the NPS Best Practices for Data Management principles found at <https://doimspp.sharepoint.com/sites/nps-nrss-imdiv/data-publication>.
+
+Primary tools include:
+
+-   **Ocular checks:** scanning the data for anomalies and logical inconsistencies.
+
+-   **Database quality control queries:** Such queries are consistently named according to this scheme: *QC_TableName_FunctionDescription*. For example, a database query that checks for impossible pH values would be named similar to `QC_WaterQualityDiscrete_ImpossiblepHValues`. These QC queries will be developed for singular execution, or they may be wrapped multiply into a stored procedure data quality report.
+
+-   **Data visualization:** The objective of data visualization and data quality reporting is to visually elucidate data anomalies such that they can be corrected or documented. The ARCN data manager continually develops and modifies R scripts to interrogate the values in the database with the objective of visually demonstrating data anomalies.
+
+-   **Data quality reporting**: Similar to the R scripts above, the ARCN data manager writes data quality reports in R Markdown to communicate the quality of the data and quantifiably report data defects. These scripts will be made available in a GitHub code repository with the URL made available here.
+
+## Certification
+
+Once data from a remeasurement cycle have been processed for quality they will be certified by the data manager on the advice of the project leader. Certification is done by setting the `CertificationLevel` attribute for the recordset to 'Certified'. A database trigger prevents altering certified records such that data consumers can be confident that the values have not changed since quality control was performed.
+
+## Data publication
+
+The ARCN_Lagoons SQL Server master database will always be the authoritative repository for lagoons monitoring data. Department of Interior policy, in practice, prohibits the publication of data directly from a database. Data files containing certified data will be exported from the database to human and machine readable formats (Comma Separated Values text files, for example) and packaged together with metadata in [Ecological Metadata Language](https://nationalparkservice.github.io/NPSdataverse/) and published to the IRMA Data Store. These Data Packages will be linked as Products to the [master lagoons monitoring Project Reference](https://irma.nps.gov/DataStore/Reference/Profile/2216893).

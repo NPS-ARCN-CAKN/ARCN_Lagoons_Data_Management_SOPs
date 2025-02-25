@@ -6,7 +6,7 @@ author: |
   National Park Service, Arctic Inventory and Monitoring Program<br/>
   240 W. 5th Ave.<br/>
   Anchorage, Alaska
-date: "2025-01-31"
+date: "2025-02-24"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]

@@ -1,6 +1,7 @@
 bookdown::gitbook:
   css: style.css
   config:
+    sharing: null
     toc:
       before: |
         <li><a href="./">Data management Standard Operating Procedures for the National Park Service arctic lagoons monitoring program</a></li>

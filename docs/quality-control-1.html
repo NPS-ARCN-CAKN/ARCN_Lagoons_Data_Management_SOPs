@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Quality control | Arctic Lagoons Monitoring Data Management Standard Operating Procedures</title>
+  <meta name="description" content="5 Quality control | Arctic Lagoons Monitoring Data Management Standard Operating Procedures" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Quality control | Arctic Lagoons Monitoring Data Management Standard Operating Procedures" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="5 Quality control | Arctic Lagoons Monitoring Data Management Standard Operating Procedures" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Quality control | Arctic Lagoons Monitoring Data Management Standard Operating Procedures" />
+  
+  <meta name="twitter:description" content="5 Quality control | Arctic Lagoons Monitoring Data Management Standard Operating Procedures" />
+  
+
+
+
+<meta name="date" content="2025-02-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="deliverable-l10-water-quality---discrete.html"/>
+<link rel="next" href="dataset-certification.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data management Standard Operating Procedures for the National Park Service arctic lagoons monitoring program</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="deliverables-schedule-deliverables-schedule.html"><a href="deliverables-schedule-deliverables-schedule.html"><i class="fa fa-check"></i><b>2</b> Deliverables Schedule {#Deliverables Schedule}</a></li>
+<li class="chapter" data-level="3" data-path="deliverable-l03-water-quality---continuous.html"><a href="deliverable-l03-water-quality---continuous.html"><i class="fa fa-check"></i><b>3</b> Deliverable L03: Water Quality - Continuous</a></li>
+<li class="chapter" data-level="4" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html"><i class="fa fa-check"></i><b>4</b> Deliverable L10: Water Quality - Discrete</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#exporting-data-from-deliverables-l10---discrete-water-quality-field-data-to-the-master-database"><i class="fa fa-check"></i><b>4.1</b> Exporting data from Deliverables L10 - Discrete water quality field data to the master database</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#prerequisites"><i class="fa fa-check"></i><b>4.1.1</b> Prerequisites</a></li>
+<li class="chapter" data-level="4.1.2" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#procedure"><i class="fa fa-check"></i><b>4.1.2</b> Procedure</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#example-export-lagoons-from-the-l-to-the-arcn_lagoons-database-using-an-r-script"><i class="fa fa-check"></i><b>4.2</b> Example: Export Lagoons from the L to the ARCN_Lagoons database using an R script</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#isolate-the-lagoons-check-they-exist-and-insert-them-into-the-lagoons-table-if-necessary"><i class="fa fa-check"></i><b>4.2.1</b> Isolate the lagoons, check they exist, and insert them into the Lagoons table, if necessary</a></li>
+<li class="chapter" data-level="4.2.2" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#isolate-the-distinct-sampling-events-and-insert-them-into-the-samplingevents-table"><i class="fa fa-check"></i><b>4.2.2</b> Isolate the distinct sampling events and insert them into the SamplingEvents table</a></li>
+<li class="chapter" data-level="4.2.3" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#insert-the-l10-discrete-water-quality-data-into-the-database"><i class="fa fa-check"></i><b>4.2.3</b> Insert the L10 Discrete Water Quality data into the database</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#quality-control"><i class="fa fa-check"></i><b>4.3</b> Quality control</a></li>
+<li class="chapter" data-level="4.4" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#certification"><i class="fa fa-check"></i><b>4.4</b> Certification</a></li>
+<li class="chapter" data-level="4.5" data-path="deliverable-l10-water-quality---discrete.html"><a href="deliverable-l10-water-quality---discrete.html#data-publication"><i class="fa fa-check"></i><b>4.5</b> Data publication</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="quality-control-1.html"><a href="quality-control-1.html"><i class="fa fa-check"></i><b>5</b> Quality control</a></li>
+<li class="chapter" data-level="6" data-path="dataset-certification.html"><a href="dataset-certification.html"><i class="fa fa-check"></i><b>6</b> Dataset Certification</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="dataset-certification.html"><a href="dataset-certification.html#section"><i class="fa fa-check"></i><b>6.1</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="dataset-publication.html"><a href="dataset-publication.html"><i class="fa fa-check"></i><b>7</b> Dataset publication</a></li>
+<li class="divider"></li>
+<li><a href="https://irma.nps.gov/DataStore/Reference/Profile/2216893" target="blank">Monitoring Coastal Lagoon Communities and Ecosystems in the Arctic Network of National Parks</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Arctic Lagoons Monitoring Data Management Standard Operating Procedures</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="quality-control-1" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Quality control<a href="quality-control-1.html#quality-control-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Quality control is an important step on the path to dataset certification and designation as of analytical quality. The lagoons monitoring program will follow the NPS Best Practices for Data Management principles found at <a href="https://doimspp.sharepoint.com/sites/nps-nrss-imdiv/data-publication" class="uri">https://doimspp.sharepoint.com/sites/nps-nrss-imdiv/data-publication</a>.</p>
+<p>Primary tools include:</p>
+<ul>
+<li><p><strong>Ocular checks:</strong> scanning the data for anomalies and logical inconsistencies.</p></li>
+<li><p><strong>Database quality control queries:</strong> Such queries are consistently named according to this scheme: <em>QC_TableName_FunctionDescription</em>. For example, a database query that checks for impossible pH values would be named similar to <code>QC_WaterQualityDiscrete_ImpossiblepHValues</code>. These QC queries will be developed for singular execution, or they may be wrapped multiply into a stored procedure data quality report.</p></li>
+<li><p><strong>Data visualization:</strong> The objective of data visualization and data quality reporting is to visually elucidate data anomalies such that they can be corrected or documented. The ARCN data manager continually develops and modifies R scripts to interrogate the values in the database with the objective of visually demonstrating data anomalies.</p></li>
+<li><p><strong>Data quality reporting</strong>: Similar to the R scripts above, the ARCN data manager writes data quality reports in R Markdown to communicate the quality of the data and quantifiably report data defects. These scripts will be made available in a GitHub code repository with the URL made available here.</p></li>
+</ul>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="deliverable-l10-water-quality---discrete.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dataset-certification.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

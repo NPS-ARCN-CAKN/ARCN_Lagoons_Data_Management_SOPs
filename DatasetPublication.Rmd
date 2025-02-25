@@ -1,0 +1,3 @@
+# Dataset publication
+
+The ARCN_Lagoons SQL Server master database will always be the authoritative repository for lagoons monitoring data. Department of Interior policy, in practice, prohibits the publication of data directly from a database. Data files containing certified data will be exported from the database to human and machine readable formats (Comma Separated Values text files, for example) and packaged together with metadata in [Ecological Metadata Language](https://nationalparkservice.github.io/NPSdataverse/) and published to the IRMA Data Store. These Data Packages will be linked as Products to the [master lagoons monitoring Project Reference](https://irma.nps.gov/DataStore/Reference/Profile/2216893).

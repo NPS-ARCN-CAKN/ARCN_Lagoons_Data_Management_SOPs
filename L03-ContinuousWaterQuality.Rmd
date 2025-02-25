@@ -1,3 +1,5 @@
 # Deliverable L03: Water Quality - Continuous
 
-data management procedures to be written
+Lagoons data deliverable L03 consists of continuous water quality sampling data.
+
+[Deliverables Schedule](#Deliverables Schedule)

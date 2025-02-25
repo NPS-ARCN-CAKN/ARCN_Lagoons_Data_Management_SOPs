@@ -10,7 +10,12 @@ new_session: yes
 rmd_files: [
   "index.Rmd",
   "DeliverablesSchedule.Rmd",
+  "DeliverablesManagement.Rmd",
   "L03-ContinuousWaterQuality.Rmd",
-  "L10-DiscreteWaterQuality.Rmd"
-  
+  "L10-DiscreteWaterQuality.Rmd",
+  "L11-Fish.Rmd",
+  "QualityControl.Rmd",
+  "DatasetCertification.Rmd",
+  "DatasetPublication.Rmd"
 ]
+
